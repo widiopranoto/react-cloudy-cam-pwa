@@ -54,10 +54,12 @@ class ClCamera extends Component {
         </button>
       </div>
     ) : (
+	  <div>
       <button className="captureButton" onClick={this.captureImage}>
         {" "}
         Take Picture{" "}
       </button>
+	  </div>
     );
 
     const uploading = this.state.uploading ? (
@@ -71,6 +73,7 @@ class ClCamera extends Component {
     return (
       <div>
         {uploading}
+
         <video
           autoPlay
           playsInline
@@ -79,9 +82,10 @@ class ClCamera extends Component {
           width="100%"
           height="200"
         />
+		<br/>
+		{buttons}
         <br />
         <div className="imageCanvas">{imageDisplay}</div>
-        {buttons}
       </div>
     );
   }
@@ -124,9 +128,9 @@ class ClCamera extends Component {
     } else {
       this.setState({ uploading: true });
       axios
-        .post(`https://api.cloudinary.com/v1_1/cloudycam/image/upload`, {
+        .post(`https://api.cloudinary.com/v1_1/widio/image/upload`, {
           file: this.state.capturedImage,
-          upload_preset: "pwa_cloudinary"
+          upload_preset: "skadapaedu"
         })
         .then(data => {
           this.setState({ uploading: false });
@@ -178,9 +182,9 @@ class ClCamera extends Component {
       for (let i = 0; i < images.length; i++) {
         // upload
         axios
-          .post(`https://api.cloudinary.com/v1_1/cloudycam/image/upload`, {
+          .post(`https://api.cloudinary.com/v1_1/widio/image/upload`, {
             file: images[i].val,
-            upload_preset: "pwa_cloudinary"
+            upload_preset: "skadapaedu"
           })
           .then(data => this.checkUploadStatus(data))
           .catch(error => {
